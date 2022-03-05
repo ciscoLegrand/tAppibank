@@ -15,6 +15,9 @@
 # gem "pg"
 #
 default: &default
+  host:     <%= Rails.application.credentials.database[:db_host] %>
+  username: <%= Rails.application.credentials.database[:db_user] %>
+  password: <%= Rails.application.credentials.database[:db_pass] %>
   adapter: postgresql
   encoding: unicode
   # For details on connection pooling, see Rails configuration guide
