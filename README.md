@@ -1,24 +1,18 @@
-# README
+# tApibank
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+### Postman documentation
 
-Things you may want to cover:
+https://documenter.getpostman.com/view/11968716/UVkvJXtN
 
-* Ruby version
 
-* System dependencies
+### Comandos de uso
 
-* Configuration
+``` ruby
 
-* Database creation
+EDITOR="vim" rails credentials:edit 
 
-* Database initialization
+rails db:create db:migrate db:seed
 
-* How to run the test suite
+rails s
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+```

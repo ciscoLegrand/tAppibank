@@ -15,7 +15,6 @@
 # gem "pg"
 #
 default: &default
-  host:     <%= Rails.application.credentials.database[:db_host] %>
   username: <%= Rails.application.credentials.database[:db_user] %>
   password: <%= Rails.application.credentials.database[:db_pass] %>
   adapter: postgresql
