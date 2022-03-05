@@ -10,9 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_03_05_101706) do
+ActiveRecord::Schema[7.0].define(version: 2022_03_05_115719) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "accounts", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "type_account"
+    t.decimal "amount", precision: 10, scale: 2
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_accounts_on_user_id"
+  end
+
+  create_table "movements", force: :cascade do |t|
+    t.bigint "account_id", null: false
+    t.string "type_movement"
+    t.decimal "amount", precision: 10, scale: 2
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_movements_on_account_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "name", null: false
@@ -24,4 +43,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_05_101706) do
     t.index ["dni"], name: "index_users_on_dni", unique: true
   end
 
+  add_foreign_key "accounts", "users"
+  add_foreign_key "movements", "accounts"
 end
