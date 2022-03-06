@@ -3,7 +3,7 @@ module Api
     class BaseController < ActionController::Base 
       include Concerns::RescueHandler 
 
-      # before_action :authenticate_user, except: %i[index register login]
+      before_action :authenticate, except: %i[register login]
 
       def json_render(object, token = '', status = :ok)
         render json: {"#{object}": object,token: token}, status: status
@@ -12,8 +12,8 @@ module Api
       private 
         SECRET = Rails.application.secrets.secret_key_base.to_s 
 
-        def autenticate  
-          authenticate_user || unauthorized 
+        def authenticate  
+          authenticate_user || unauthorize
         end 
 
         def authenticate_user 
@@ -22,7 +22,7 @@ module Api
           end
         end
 
-        def unhautorize 
+        def unauthorize 
           head :unauthorized
         end
 
