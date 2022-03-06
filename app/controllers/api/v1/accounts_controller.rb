@@ -1,8 +1,8 @@
 module Api 
   module V1 
     class AccountsController < BaseController
-      before_action :set_account, only: [:show, :update, :destroy]
-      before_action :set_owner, only: [:index, :create]
+      before_action :set_account, only: %i[show update destroy]
+      before_action :set_owner, only: %i[index create]
       def index
         @accounts = @owner.accounts.all
         json_render(@accounts)
@@ -13,24 +13,21 @@ module Api
       end
 
       def create 
-        @account = @owner.accounts.create!(account_params)
-        if @account.valid? 
-          json_render(@account, :created)
-        else
-          json_render(@account.errors, :unprocessable_entity)
+        @account = Account.new(account_params)
+        if @account.is_valid_account?(@account.type_account)
+          @account = @owner.accounts.create!(account_params)
         end
+        json_render(@account)
       end
 
       def update
-        @account.update(acount_params)
-        if @account.save? 
-          json_render(@account, :accepted)
-        else
-          json_render(@account.errors, :unprocessable_entity)
-        end
+        @account.update!(account_params) 
+        json_render(@account)
       end
 
       def destroy 
+        @account.destroy
+        json_render(@account)
       end
 
       private 
